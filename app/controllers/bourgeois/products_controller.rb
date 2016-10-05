@@ -1,10 +1,7 @@
 module Bourgeois
   class ProductsController < ::ApplicationController
-    before_action :set_product, only: [:show, :edit, :update, :destroy]
-
     # GET /products
     def index
-      @products = Product.all
     end
 
     # GET /products/1
@@ -12,9 +9,15 @@ module Bourgeois
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_product
-        @product = Product.find(params[:id])
+
+    helper_method :product
+    def product
+      @product ||= Product.find(params[:id])
+    end
+
+    helper_method :products
+    def products
+      @products ||= Product.all
     end
   end
 end
